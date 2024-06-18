@@ -1,8 +1,8 @@
 <?php
-$HOST = 'sql307.infinityfree.com';
-$USER = 'if0_36668472';
+$HOST = 'localhost';
+$USER = 'oleksandr34';
 $PASS = 'S78345678sd';
-$DB = 'if0_36668472_oleksandr';
+$DB = 'oleksandr23';
 $conn = mysqli_connect($HOST,$USER,$PASS,$DB);
 mysqli_set_charset($conn,"utf8");
 
