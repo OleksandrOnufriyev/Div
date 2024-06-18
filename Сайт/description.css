@@ -79,8 +79,12 @@ nav ul li a:hover{
 
 #description-page .product-image {
     width: 400px;
-    margin-right: 20px;
-    float: left;
+    margin-left: 20px; /* Замість margin-right */
+    float: right; /* Змінено float на right */
+}
+
+#description-page .product-info {
+    width: calc(100% - 420px); /* Змінено віднімання на відповідну ширину */
 }
 
 #description-page .product-info {

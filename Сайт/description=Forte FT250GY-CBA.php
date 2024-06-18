@@ -54,6 +54,9 @@ if ($result->num_rows > 0) {
 <div id="description-page">
     <div class="product-info">
         <h1>Forte FT250GY-CBA</h1>
+		<div class="product-image">
+            <img src="https://images.prom.ua/4487469107_w640_h640_4487469107.jpg" alt="Фото мотоцикла">
+        </div>
         <div class="product-description">
             <h1>Опис мотоцикла</h1>
             <p><?php echo $description; ?></p>
@@ -63,9 +66,7 @@ if ($result->num_rows > 0) {
             <h2>Характеристики</h2>
             <p><?php echo $specifications; ?></p>
         </div>
-		<div class="product-image">
-            <img src="https://images.prom.ua/4487469107_w640_h640_4487469107.jpg" alt="Фото мотоцикла">
-        </div>
+		
     </div>
 </div>
 <?php
