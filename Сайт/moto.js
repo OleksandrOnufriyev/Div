@@ -19,12 +19,4 @@ function handleFormSubmit(event) {
     alert("Продаж мотоцикла успішно здійснено!");
     return false; 
 }
- fetch('get_motorcycle_data.php')
-            .then(response => response.json())
-            .then(data => {
-                // Вставка опису у відповідний елемент на сторінці
-                document.getElementById('description').textContent = data.description;
-                // Вставка характеристик у відповідний елемент на сторінці
-                document.getElementById('specs').textContent = data.specs;
-            })
-            .catch(error => console.error('Помилка:', error));
+ 

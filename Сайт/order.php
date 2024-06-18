@@ -50,19 +50,6 @@ if ($result->num_rows > 0) {
     echo "img/logo_anim8.jpeg";
 }
 
-$sql = "SELECT description, specs FROM motorcycles WHERE id = 1"; 
-
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
-    // Вивід даних кожного рядка
-    while($row = $result->fetch_assoc()) {
-        // Виведення опису і характеристик мотоцикла у вигляді JSON
-        echo json_encode($row);
-    }
-} else {
-    echo "0 результатів";
-}
 
 $conn->close();
 ?>
