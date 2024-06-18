@@ -30,7 +30,7 @@ if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     $description = $row['description'];
     $specifications = $row['specifications'];
-    // Виведення інформації про мотоцикл
+  
 ?>
 <header>
     <img src='img/logo.jpg' >
