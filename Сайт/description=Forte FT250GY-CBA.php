@@ -63,6 +63,9 @@ if ($result->num_rows > 0) {
             <h2>Характеристики</h2>
             <p><?php echo $specifications; ?></p>
         </div>
+		<div class="product-image">
+            <img src="https://images.prom.ua/4487469107_w640_h640_4487469107.jpg" alt="Фото мотоцикла">
+        </div>
     </div>
 </div>
 <?php
