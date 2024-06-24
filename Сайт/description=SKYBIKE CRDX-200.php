@@ -6,8 +6,32 @@
     <title>Опис мотоцикла</title>
     <link rel="stylesheet" href="description.css">
 </head>
-<body>
- <header>
+<?php
+// Підключення до бази даних
+$HOST = 'localhost';
+$USER = 'oleksandr35';
+$PASS = 'S78345678sd';
+$DB = 'oleksandr17';
+$conn = mysqli_connect($HOST, $USER, $PASS, $DB);
+mysqli_set_charset($conn, "utf8");
+
+// Перевірка підключення
+if ($conn->connect_error) {
+    die("Помилка підключення до бази даних: " . $conn->connect_error);
+}
+
+// Запит до бази даних для отримання даних про мотоцикл (приклад)
+$sql = "SELECT * FROM motorcycles WHERE id = 5"; 
+
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $description = $row['description'];
+    $specifications = $row['specifications'];
+  
+?>
+<header>
     <img src='img/logo.jpg' >
     <p style='float: right'>
         <a href='https://www.instagram.com/_sasha_on_?igsh=d2Z3OGdvazc4cW9v&utm_source=qr'><img src='img/inst.jfif' width='50'></a>
@@ -26,119 +50,30 @@
         </ul>
     </nav>
 </header>
-    <div id="description-page">
-        <div class="product-info">
-            <h1>SKYBIKE CRDX-200 (17 / 17)</h1>
-            <div class="product-description">
-                <p>Двигун ZONGSHEN
-Система Pro-Link - прогресивна задня підвіска, виконана з алюмінієвих деталей.
-Позашляхова гума
-Багажна платформа ззаду
-Підніжки пасажира
- </p></div>
-            <div class="product-specs">
-                <h2>Характеристики</h2>
-               Тип двигуна
-
-1-циліндр, 4-х тактний, OHV
-
-Охолодження:
-
-повітряне
-
-Робочий об'єм (см3)
-
-197
-
-Макс. потужність (к.с/при об/хв)
-
-14,3/7500
-
-Макс. крутний момент (Нм/при об/хв)
-
-13/6500 
-
-Ступінь стиснення:
-
-11,5: 1
-
-Система живлення
-
-карбюратор
-
-Система запалювання
-
-CDI
-
-Система пуску
-
-Електро/кік-стартер
-
-КПП/головна передача
-
-5 ступінчаста механічна
-
-Шасі
-
- 
-
-Рама
-
-сталева трубчаста
-
-Передня підвіска
-
-телескопічна вилка перевернутого типу,
-
-Задня підвіска
-
-сталевий маятник, моноамортизатор з прогресією
-
-Гальма, передні/задні
-
-диск/диск
-
-Шини, передня/задня
-
-70/100-19/90/100-16
-
-Загальні дані
-
- 
-
-ДхШхВ (мм)
-
-1980×830×1290
-
-Витрата палива (л/100 км)
-
-2,4
-
-Висота по сидінню (мм)
-
-850
-
-Дорожній просвіт (мм)
-
-290
-
-Суха вага (кг)
-
-100
-
-Об'єм паливного бака (л)
-
-6,5
-
-Максимальна швидкість (км/год)
-
-115
-            </div>
-           
-        </div>
-        <div class="product-image">
+<div id="description-page">
+    <div class="product-info">
+        <h1>SKYBIKE CRDX-200 (17 / 17)</h1>
+		<div class="product-image">
             <img src="https://mototek.com.ua/previev.php?src=https://mototek.com.ua/components/com_jshopping/files/img_products/skybike-crdx-200-17-171.jpg&w=531&h=403" alt="Фото мотоцикла">
         </div>
+        <div class="product-description">
+            <h1>Опис мотоцикла</h1>
+            <p><?php echo $description; ?></p>
+        </div>
+        <!-- Характеристики продукту -->
+        <div class="product-specs">
+            <h2>Характеристики</h2>
+            <p><?php echo $specifications; ?></p>
+        </div>
+		
     </div>
+</div>
+<?php
+} else {
+    echo "Дані про мотоцикл не знайдено";
+}
+
+$conn->close();
+?>
 </body>
 </html>

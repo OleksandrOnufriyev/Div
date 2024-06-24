@@ -7,7 +7,32 @@
     <link rel="stylesheet" href="description.css">
 </head>
 <body>
- <header>
+<?php
+// Підключення до бази даних
+$HOST = 'localhost';
+$USER = 'oleksandr35';
+$PASS = 'S78345678sd';
+$DB = 'oleksandr17';
+$conn = mysqli_connect($HOST, $USER, $PASS, $DB);
+mysqli_set_charset($conn, "utf8");
+
+// Перевірка підключення
+if ($conn->connect_error) {
+    die("Помилка підключення до бази даних: " . $conn->connect_error);
+}
+
+// Запит до бази даних для отримання даних про мотоцикл (приклад)
+$sql = "SELECT * FROM motorcycles WHERE id = 7"; 
+
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $description = $row['description'];
+    $specifications = $row['specifications'];
+  
+?>
+<header>
     <img src='img/logo.jpg' >
     <p style='float: right'>
         <a href='https://www.instagram.com/_sasha_on_?igsh=d2Z3OGdvazc4cW9v&utm_source=qr'><img src='img/inst.jfif' width='50'></a>
@@ -26,49 +51,30 @@
         </ul>
     </nav>
 </header>
-    <div id="description-page">
-        <div class="product-info">
-            <h1>ASIX MZK 125cc 17/14</h1>
-            <div class="product-description">
-                <p>Мотоцикл ASIX MZK 125cc 17/14:
-Двигун 289 см³ потужністю 26 л.с. працює в парі з карбюратором Nibbi Racing PWK34
-Встановлено резонатор вихлопної системи Megabomb
-Полегшені алюмінієві анодовані обода
-Алюмінієвий маятник
-Захист переднього гальмівного диска
-Кермо змінного перерізу з діаметром 28 мм
-Ланцюг AFAM 520 </p></div>
-            <div class="product-specs">
-                <h2>Характеристики</h2>
-               Характеристика мотоцикла:
-Тип двигуна: 1-циліндр, 4-х тактний, OHC, 4-х клапанний, з балансувальним валом
-Охолодження: Рідинне
-Робочий об'єм, см3: 289
-Макс. потужність, к.с. / при об / хв,: 26/8000
-Макс. крутний момент, Нм / при об / хв: 23/7000
-Діаметр / хід поршня, мм: 74х65
-Система харчування: Карбюратор Nibbi Racing PWK34
-Система запалювання: CDI
-Система пуску: Електростартер, кік-стартер
-КПП / головна передача: 5 або 6-ступінчаста механічна / ланцюг 520
-Рама: Сталева трубчаста
-Передня підвіска: Телескопічна вилка перевернутого типу з набором регулювань, Ø 47 мм, хід 265 мм
-Задня підвіска: Алюмінієвий маятник, пневмогидравлический моноамортизатор з набором регулювань, хід 110 мм
-Гальма, передній / задній: Дисковий Ø 240 мм, 2-х поршневий супорт / дисковий Ø 240 мм, однопоршневою супорт
-Шини, передня / задня: 80 / 100-21 / 100 / 90-18
-ДхШхВ, мм: 2100 × 800 × 1270
-Колісна база, мм 1440
-Висота по сідла, мм: 940
-Дорожній просвіт, мм: 320
-Суха вага, кг: 116
-Об'єм паливного бака, л: 10
-Максимальна швидкість, км / год: 120
-            </div>
-           
-        </div>
-        <div class="product-image">
+<div id="description-page">
+    <div class="product-info">
+        <h1>ASIX MZK 125cc 17/14</h1>
+		<div class="product-image">
             <img src="https://mototek.com.ua/previev.php?src=https://mototek.com.ua/components/com_jshopping/files/img_products/asix-mzk-125cc-17-14__11_.jpg&w=531&h=403" alt="Фото мотоцикла">
         </div>
+        <div class="product-description">
+            <h1>Опис мотоцикла</h1>
+            <p><?php echo $description; ?></p>
+        </div>
+        <!-- Характеристики продукту -->
+        <div class="product-specs">
+            <h2>Характеристики</h2>
+            <p><?php echo $specifications; ?></p>
+        </div>
+		
     </div>
+</div>
+<?php
+} else {
+    echo "Дані про мотоцикл не знайдено";
+}
+
+$conn->close();
+?>
 </body>
 </html>

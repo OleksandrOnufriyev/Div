@@ -7,7 +7,32 @@
     <link rel="stylesheet" href="description.css">
 </head>
 <body>
- <header>
+<?php
+// Підключення до бази даних
+$HOST = 'localhost';
+$USER = 'oleksandr35';
+$PASS = 'S78345678sd';
+$DB = 'oleksandr17';
+$conn = mysqli_connect($HOST, $USER, $PASS, $DB);
+mysqli_set_charset($conn, "utf8");
+
+// Перевірка підключення
+if ($conn->connect_error) {
+    die("Помилка підключення до бази даних: " . $conn->connect_error);
+}
+
+// Запит до бази даних для отримання даних про мотоцикл (приклад)
+$sql = "SELECT * FROM motorcycles WHERE id = 4"; 
+
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $description = $row['description'];
+    $specifications = $row['specifications'];
+  
+?>
+<header>
     <img src='img/logo.jpg' >
     <p style='float: right'>
         <a href='https://www.instagram.com/_sasha_on_?igsh=d2Z3OGdvazc4cW9v&utm_source=qr'><img src='img/inst.jfif' width='50'></a>
@@ -26,109 +51,30 @@
         </ul>
     </nav>
 </header>
-    <div id="description-page">
-        <div class="product-info">
-            <h1>KAYO T2-250</h1>
-            <div class="product-description">
-                <p>Мотоцикл KAYO K2-250 - це повноцінний ендуро власної розробки компанії KAYO, який зараз досить популярний у мотолюбителів різного віку. KAYO – високотехнологічне підприємство з розвиненою системою контролю якості, виробляє понад 50 різних найменувань мототехніки – пітбайки, кросові мотоцикли класу ендуро, супермото та квадроцикли.
-
-Мотоцикл KAYO K2 відрізняється гарним дизайном, легкістю в керуванні та безумовною надійністю. </p></div>
-            <div class="product-specs">
-                <h2>Характеристики</h2>
-               Тип двигуна
-
-1-циліндр, 4-х тактний, SOHC (166FMM)
-
-Охолодження:
-
-повітряне
-
-Робочий об'єм (см3)
-
-233
-
-Макс. потужність (к.с / при об / хв)
-
-18 / 7500
-
-Макс. крутний момент (Нм / при об / хв)
-
-17 / 6500 
-
-Ступінь стиснення:
-
-12.9: 1
-
-Паливна система
-
-карбюратор
-
-Система запалювання
-
-CDI
-
-Система пуску
-
-електро / кікстартер
-
-КПП / головна передача
-
-5 ступінчаста механічна
-
-Рама
-
-сталева трубчаста
-
-Передня підвіска
-
-телескопічна вилка перевернутого типу,
-800 мм 
-
-Задня підвіска
-
-сталевий маятник, моноамортизатор 360 мм
-
-Гальма, переднє / заднє
-
-диск / диск
-
-Шини, передня / задня
-
-80/100-21 / 110/90-18
-
-ДхШхВ (мм)
-
-2035 × 840 × 1166
-
-Витрата палива (л / 100км)
-
-2,8
-
-Висота по сидінню (мм)
-
-875
-
-Дорожній просвіт (мм)
-
-320
-
-Суха вага (кг)
-
-105
-
-Обсяг паливного бака (л)
-
-6,7
-
-Максимальна швидкість (км / год)
-
-115
-            </div>
-           
-        </div>
-        <div class="product-image">
+<div id="description-page">
+    <div class="product-info">
+        <h1>KAYO T2-250</h1>
+		<div class="product-image">
             <img src="https://mototek.com.ua/previev.php?src=https://mototek.com.ua/components/com_jshopping/files/img_products/KAYO_T2-250.jpg&w=531&h=403" alt="Фото мотоцикла">
         </div>
+        <div class="product-description">
+            <h1>Опис мотоцикла</h1>
+            <p><?php echo $description; ?></p>
+        </div>
+        <!-- Характеристики продукту -->
+        <div class="product-specs">
+            <h2>Характеристики</h2>
+            <p><?php echo $specifications; ?></p>
+        </div>
+		
     </div>
+</div>
+<?php
+} else {
+    echo "Дані про мотоцикл не знайдено";
+}
+
+$conn->close();
+?>
 </body>
 </html>

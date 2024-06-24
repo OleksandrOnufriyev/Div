@@ -7,7 +7,32 @@
     <link rel="stylesheet" href="description.css">
 </head>
 <body>
- <header>
+<?php
+// Підключення до бази даних
+$HOST = 'localhost';
+$USER = 'oleksandr35';
+$PASS = 'S78345678sd';
+$DB = 'oleksandr17';
+$conn = mysqli_connect($HOST, $USER, $PASS, $DB);
+mysqli_set_charset($conn, "utf8");
+
+// Перевірка підключення
+if ($conn->connect_error) {
+    die("Помилка підключення до бази даних: " . $conn->connect_error);
+}
+
+// Запит до бази даних для отримання даних про мотоцикл (приклад)
+$sql = "SELECT * FROM motorcycles WHERE id = 3"; 
+
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $description = $row['description'];
+    $specifications = $row['specifications'];
+  
+?>
+<header>
     <img src='img/logo.jpg' >
     <p style='float: right'>
         <a href='https://www.instagram.com/_sasha_on_?igsh=d2Z3OGdvazc4cW9v&utm_source=qr'><img src='img/inst.jfif' width='50'></a>
@@ -26,31 +51,30 @@
         </ul>
     </nav>
 </header>
-    <div id="description-page">
-        <div class="product-info">
-            <h1>Forte Cross 250</h1>
-            <div class="product-description">
-                <p>Мотоцикл Forte Cross 250 - універсальний транспортний засіб, підійде для пересування в міських умовах, але основне його призначення це їзда по бездоріжжю, для комфортної їзди по якому був використаний якісний передній амортизатор і сталеві диски спиць. Максимальна вантажопідйомність становить 150 кг, а максимальна швидкість - 98км / год. В мотоциклі встановлені гідравлічні дискові гальма з вентиляцією, передня телескопічна вилка і задня маятникова підвіска, чого цілком достатньо для комфортної їзди. Дана модель має ланцюговий привід і механічну 5-ступінчасту коробку передач. Присутній захист для рук водія, задня підніжка і захист двигуна від удару. </div>
-            <div class="product-specs">
-                <h2>Характеристики</h2>
-                Виробник: Forte
-Країна виробництва: Китай
-Тип мотоцикла: Ендуро
-Система запуску: Електростартер, кікстартер
-Тип двигуна: Чотиритактний
-Кількість циліндрів: 1
-Система вприскування палива: Карбюратор
-Головна передача: Ланцюгова
-Об'єм бензобака: 9.5 л
-Охолодження двигуна: Повітряне
-Колір: Білий, червоний, чорний
-Принт: Абстрактний
-            </div>
-           
-        </div>
-        <div class="product-image">
+<div id="description-page">
+    <div class="product-info">
+        <h1>Forte CROSS 250</h1>
+		<div class="product-image">
             <img src="https://images.prom.ua/4198778087_w640_h640_4198778087.jpg" alt="Фото мотоцикла">
         </div>
+        <div class="product-description">
+            <h1>Опис мотоцикла</h1>
+            <p><?php echo $description; ?></p>
+        </div>
+        <!-- Характеристики продукту -->
+        <div class="product-specs">
+            <h2>Характеристики</h2>
+            <p><?php echo $specifications; ?></p>
+        </div>
+		
     </div>
+</div>
+<?php
+} else {
+    echo "Дані про мотоцикл не знайдено";
+}
+
+$conn->close();
+?>
 </body>
 </html>
